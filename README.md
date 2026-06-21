@@ -1,9 +1,6 @@
-# Code Generator
-A Python project that generates code for a specific file based on an architectural plan.
-
+# Onboarding and Session Management
+This project provides a simple onboarding and session management system.
 ## Usage
-1. Create an instance of `ArchitecturalPlan` with the desired filename, context snippet, and target language.
-2. Call the `generate_code` function with the `ArchitecturalPlan` instance to generate the code.
-
-## Testing
-Run the tests using `python -m pytest` to ensure the code generator is working correctly.
+1. Run `python -m pytest` to run the tests.
+2. Use the `Onboarding` class to start a new session.
+3. Use the `AIAssistant` class to open the AI assistant panel and start a new session.
