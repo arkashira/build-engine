@@ -1,31 +1,32 @@
-from code_generator import generate_code, ArchitecturalPlan, parse_architectural_plan
-import json
+from code_generator import generate_code, ArchitectureDiagram
+import pytest
 
-def test_generate_code():
-    architectural_plan = ArchitecturalPlan(
-        filename="example",
-        context_snippet="example context",
-        target_language="python"
-    )
-    code = generate_code(architectural_plan)
-    assert code.startswith("# example.py")
-    assert "class Example:" in code
+def test_generate_typescript_code():
+    diagram = ArchitectureDiagram(["Component1", "Component2"], ["Relationship1", "Relationship2"])
+    code = generate_code(diagram, "TypeScript")
+    assert "interface Component" in code
+    assert "Component1" in code
+    assert "Component2" in code
+    assert "Relationship1" in code
+    assert "Relationship2" in code
 
-def test_generate_code_invalid_target_language():
-    architectural_plan = ArchitecturalPlan(
-        filename="example",
-        context_snippet="example context",
-        target_language="java"
-    )
-    try:
-        generate_code(architectural_plan)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert str(e) == "Unsupported target language"
+def test_generate_python_code():
+    diagram = ArchitectureDiagram(["Component1", "Component2"], ["Relationship1", "Relationship2"])
+    code = generate_code(diagram, "Python")
+    assert "class Component" in code
+    assert "Component1" in code
+    assert "Component2" in code
+    assert "Relationship1" in code
+    assert "Relationship2" in code
 
-def test_parse_architectural_plan():
-    json_data = '{"filename": "example", "context_snippet": "example context", "target_language": "python"}'
-    architectural_plan = parse_architectural_plan(json_data)
-    assert architectural_plan.filename == "example"
-    assert architectural_plan.context_snippet == "example context"
-    assert architectural_plan.target_language == "python"
+def test_generate_code_invalid_language():
+    diagram = ArchitectureDiagram(["Component1", "Component2"], ["Relationship1", "Relationship2"])
+    with pytest.raises(ValueError):
+        generate_code(diagram, "InvalidLanguage")
+
+def test_generate_code_empty_diagram():
+    diagram = ArchitectureDiagram([], [])
+    code = generate_code(diagram, "TypeScript")
+    assert "interface Component" in code
+    assert not any(component in code for component in ["Component1", "Component2"])
+    assert not any(relationship in code for relationship in ["Relationship1", "Relationship2"])

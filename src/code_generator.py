@@ -1,36 +1,38 @@
 import json
 from dataclasses import dataclass
-from typing import Dict
+from typing import List
 
 @dataclass
-class ArchitecturalPlan:
-    filename: str
-    context_snippet: str
-    target_language: str
+class ArchitectureDiagram:
+    components: List[str]
+    relationships: List[str]
 
-def generate_code(architectural_plan: ArchitecturalPlan) -> str:
-    if architectural_plan.target_language == "python":
-        return generate_python_code(architectural_plan)
+def generate_code(diagram: ArchitectureDiagram, language: str) -> str:
+    if language == "TypeScript":
+        return generate_typescript_code(diagram)
+    elif language == "Python":
+        return generate_python_code(diagram)
     else:
-        raise ValueError("Unsupported target language")
+        raise ValueError("Unsupported language")
 
-def generate_python_code(architectural_plan: ArchitecturalPlan) -> str:
-    code = f"# {architectural_plan.filename}.py\n"
-    code += "import json\n"
-    code += "\n"
-    code += f"class {architectural_plan.filename.capitalize()}:\n"
-    code += "    def __init__(self, context_snippet: str):\n"
-    code += "        self.context_snippet = context_snippet\n"
-    code += "\n"
-    code += "    def process(self) -> str:\n"
-    code += "        # Process the context snippet\n"
-    code += "        return self.context_snippet\n"
+def generate_typescript_code(diagram: ArchitectureDiagram) -> str:
+    code = "interface Component {\n"
+    for component in diagram.components:
+        code += f"  {component}: any;\n"
+    code += "}\n\n"
+    for relationship in diagram.relationships:
+        code += f"const {relationship} = () => {{\n"
+        code += "  // implementation\n"
+        code += "};\n\n"
     return code
 
-def parse_architectural_plan(json_data: str) -> ArchitecturalPlan:
-    data = json.loads(json_data)
-    return ArchitecturalPlan(
-        filename=data["filename"],
-        context_snippet=data["context_snippet"],
-        target_language=data["target_language"]
-    )
+def generate_python_code(diagram: ArchitectureDiagram) -> str:
+    code = "class Component:\n"
+    for component in diagram.components:
+        code += f"  {component}: any = None\n"
+    code += "\n"
+    for relationship in diagram.relationships:
+        code += f"def {relationship}(self) -> None:\n"
+        code += "  # implementation\n"
+        code += "  pass\n\n"
+    return code
