@@ -5,4 +5,4 @@ A simple code generator that generates type-safe code in TypeScript or Python fr
 To use the code generator, create an instance of the `ArchitectureDiagram` class and pass it to the `generate_code` function along with the desired language.
 
 ## Testing
-To run the tests, use the following command:
+To run the tests, use the `pytest` command.

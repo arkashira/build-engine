@@ -29,10 +29,11 @@ def generate_typescript_code(diagram: ArchitectureDiagram) -> str:
 def generate_python_code(diagram: ArchitectureDiagram) -> str:
     code = "class Component:\n"
     for component in diagram.components:
-        code += f"  {component}: any = None\n"
-    code += "\n"
+        code += f"  def {component}(self) -> None:\n"
+        code += "    # implementation\n"
+        code += "    pass\n\n"
     for relationship in diagram.relationships:
-        code += f"def {relationship}(self) -> None:\n"
+        code += f"def {relationship}(component: Component) -> None:\n"
         code += "  # implementation\n"
         code += "  pass\n\n"
     return code
