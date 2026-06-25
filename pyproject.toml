@@ -1,14 +1,10 @@
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
-
-[tool.poetry]
-name = "code-generator"
+[project]
+name = "build-engine-session-dashboard"
 version = "0.1.0"
-description = ""
+description = "A minimal session management and billing dashboard."
+requires-python = ">=3.8"
 
-[tool.poetry.dependencies]
-python = "^3.8"
-
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]

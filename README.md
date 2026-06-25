@@ -1,8 +1,12 @@
-# Code Generator
-A simple code generator that generates type-safe code in TypeScript or Python from an architecture diagram.
+# Build Engine – Session Management & Billing Dashboard
+
+This small Python project demonstrates a real‑time session dashboard that tracks paid sessions per month, calculates revenue, and churn rate, and can export session data to CSV.
+
+## Features
+
+- **Add Sessions** – Record a paid session with amount and timestamps.
+- **Dashboard** – Retrieve session count, revenue, and churn rate for any month.
+- **Real‑time Updates** – Adding a session automatically updates metrics.
+- **CSV Export** – Export all sessions for a month to a CSV file.
 
 ## Usage
-To use the code generator, create an instance of the `ArchitectureDiagram` class and pass it to the `generate_code` function along with the desired language.
-
-## Testing
-To run the tests, use the `pytest` command.
